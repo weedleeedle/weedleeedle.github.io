@@ -1,10 +1,11 @@
 ---
-id: Type Assertions in Rust
+id: type-assertions-in-rust
 aliases: []
 tags:
   - post
   - rust
 title: Type Assertions in Rust
+index: 1
 ---
 
 In software development and computer science, an invariant or invariance refers to an assertion that can be made about a property of our code. It can be a single property or a relationship between multiple. For example, in a video game a player character may have the invariant that their health is always greater than or equal to 0. In C, a common invariant is that:
