@@ -24,6 +24,11 @@ export default async function(eleventyConfig) {
   eleventyConfig.addCollection("sortedPosts", function (collectionsApi) {
     return collectionsApi.getFilteredByTag("post").sort((a, b) => b.data.index - a.data.index);
   });
+
+  // Add images to output
+  eleventyConfig.addPassthroughCopy("src/**/*.jpg");
+  eleventyConfig.addPassthroughCopy("src/**/*.png");
+  eleventyConfig.addPassthroughCopy("src/**/*.webp");
 };
 
 
