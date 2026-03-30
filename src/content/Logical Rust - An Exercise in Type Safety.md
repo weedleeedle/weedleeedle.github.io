@@ -4,7 +4,8 @@ aliases:
 tags:
   - post
 title: "Logical Rust: An Exercise in Type Safety"
-index: 
+index: 2
+published: false
 ---
 
 ## Introduction

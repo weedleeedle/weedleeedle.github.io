@@ -5,7 +5,8 @@ tags:
   - post
   - godot
 title: Extending Functionality in Godot
-index: 2
+index: 3
+published: false
 ---
 
 Let's imagine we have a game we're working on where we want to modify and extend some functionality on an existing node or node type. For example, let's imagine we want to add sound effects to all of our UI buttons.

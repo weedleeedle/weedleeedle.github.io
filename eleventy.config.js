@@ -22,7 +22,7 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({"src/_includes/bundle.css": "bundle.css"});
   // Add sorted posts collection
   eleventyConfig.addCollection("sortedPosts", function (collectionsApi) {
-    return collectionsApi.getFilteredByTag("post").sort((a, b) => b.data.index - a.data.index);
+    return collectionsApi.getFilteredByTag("post").sort((a, b) => b.data.index - a.data.index).filter((a) => a.data.published)
   });
 
   // Add images to output
