@@ -1,0 +1,19 @@
+<style>
+    #game-canvas {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+    }
+</style>
+
+<canvas id="game-canvas"></canvas>
+<!-- A bit hacky but ok -->
+<script src="/worm_game/worm_game.js"></script>
+<script>
+    var engine = new Engine({"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"worm_game","experimentalVK":false,"fileSizes":{"worm_game.pck":32524,"worm_game.wasm":35740641},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4});
+    const canvasElement = document.querySelector("#game-canvas");
+    canvasElement.width = window.innerWidth;
+    canvasElement.height = window.innerHeight;
+    engine.startGame({canvas: canvasElement, canvasResizePolicy: 0, executable: "/worm_game/worm_game"});
+</script>
+
