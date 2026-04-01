@@ -4,6 +4,9 @@ inputs:
     version:
         description: "Godot version number"
         default: "4.6.2"
+    export_template_version:
+        description: "Godot needs export templates and doesn't let you set the directory specifically, so we need this."
+        default: "4.6.2.stable"
 runs:
     using: "composite"
     steps:
@@ -24,11 +27,11 @@ runs:
           shell: bash
 
         - name: "Create Export Template Directory"
-          run: mkdir -p ~/.local/share/godot/export_templates/template
+          run: mkdir -p ~/.local/share/godot/export_templates/${{ inputs.export_template_version }}
           shell: bash
 
         - name: "Unzip Export Templates"
-          run: unzip -d ~/.local/share/godot/export_templates/template templates.zip
+          run: unzip -d ~/.local/share/godot/export_templates/${{ inputs.export_template_version }} templates.zip
           shell: bash
 
         - name: "Set Permissions"
