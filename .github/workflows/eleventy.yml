@@ -23,11 +23,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name: Setup Graphviz
-        run: sudo apt-get install -y graphviz
-
       - name: Install Godot
         uses: ./github/actions/install-godot
+
+      - name: Setup Graphviz
+        run: sudo apt-get install -y graphviz
         
       - name: Install dependencies
         run: npm install
