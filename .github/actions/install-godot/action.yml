@@ -19,6 +19,14 @@ runs:
           run: unzip -p godot.zip > godot/godot
           shell: bash
 
+        - name: "Download Export Templates"
+          run: wget "https://downloads.godotengine.org/?version=${{ inputs.version }}&flavor=stable&slug=export_templates.tpz&platform=templates" -O templates.zip
+          shell: bash
+
+        - name: "Unzip Export Templates"
+          run: unzip -d ~/.local/share/godot/export_templates/template templates.zip
+          shell: bash
+
         - name: "Set Permissions"
           run: chmod +x godot/godot
           shell: bash
