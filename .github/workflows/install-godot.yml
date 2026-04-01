@@ -1,0 +1,30 @@
+name: 'Install Godot'
+description: 'Installs and sets up godot'
+inputs:
+    version:
+        description: "Godot version number"
+        default: "4.6.2"
+runs:
+    using: "composite"
+    steps:
+        - name: "Create Godot Directory"
+          run: mkdir godot && cd godot
+          shell: bash
+
+        - name: "Download Godot"
+          run: wget "https://downloads.godotengine.org/?version=$VERSION&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -o godot.zip
+          shell: bash
+          env:
+              VERSION: ${{ inputs.version }}
+
+        - name: "Unzip Godot"
+          run: unzip -p godot.zip > godot
+          shell: bash
+
+        - name: "Set Permissions"
+          run: chmod +x godot
+          shell: bash
+
+        - name: "Add Godot to PATH"
+          run: export PATH=$PATH:$(pwd)
+          shell: bash
