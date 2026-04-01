@@ -21,7 +21,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+
+      # Check out submodules toooo!
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
 
       - name: Install Godot
         uses: ./.github/actions/install-godot
