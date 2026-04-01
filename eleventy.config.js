@@ -1,6 +1,7 @@
 import graphVizPlugin from "eleventy-plugin-graphviz";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import markdownItCallouts from "markdown-it-callouts";
+import build_worm_game from "./build_worm_game.js";
 
 export default async function(eleventyConfig) {
   eleventyConfig.addPlugin(graphVizPlugin, { format: "svg" });
@@ -20,8 +21,6 @@ export default async function(eleventyConfig) {
 
   // Copy bundle.css to output directory
   eleventyConfig.addPassthroughCopy({"src/_includes/bundle.css": "bundle.css"});
-  // Copy worm game/godot engine stuff
-  eleventyConfig.addPassthroughCopy({"src/_includes/worm_game.*": "worm_game"});
   // Add sorted posts collection
   eleventyConfig.addCollection("sortedPosts", function (collectionsApi) {
     return collectionsApi.getFilteredByTag("post").sort((a, b) => b.data.index - a.data.index).filter((a) => a.data.published)
@@ -31,6 +30,9 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/**/*.jpg");
   eleventyConfig.addPassthroughCopy("src/**/*.png");
   eleventyConfig.addPassthroughCopy("src/**/*.webp");
+
+  await build_worm_game();
+  eleventyConfig.addPassthroughCopy("src/_includes/build/worm_game/*");
 };
 
 

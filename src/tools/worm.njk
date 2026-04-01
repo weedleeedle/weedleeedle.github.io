@@ -4,4 +4,19 @@ layout: base.njk
 
 Hi I'm a worm!!!
 
-{% include "worm_game.njk" %}
+<style>
+    #godot-canvas {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+    }
+</style>
+<canvas id="godot-canvas"></canvas>
+<script src="/_includes/build/worm_game/worm_game.js"></script>
+<script>
+    const canvasElement = document.getElementById("godot-canvas");
+    canvasElement.width = window.innerWidth;
+    canvasElement.height = window.innerHeight;
+    var engine = new Engine({canvas: canvasElement, executable: "/_includes/build/worm_game/worm_game", canvasResizePolicy: 0});
+    engine.startGame();
+</script>
