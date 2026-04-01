@@ -28,7 +28,7 @@ runs:
           shell: bash
 
         - name: "Unzip Export Templates"
-          run: unzip -d ~/.local/share/godot/export_templates/${{ inputs.version }}.stable "templates/*" templates.zip
+          run: unzip -j -d ~/.local/share/godot/export_templates/${{ inputs.version }}.stable templates.zip "templates/*"
           shell: bash
 
         - name: "Set Permissions"
