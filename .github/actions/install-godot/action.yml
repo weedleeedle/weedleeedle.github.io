@@ -12,7 +12,7 @@ runs:
           shell: bash
 
         - name: "Download Godot"
-          run: wget "https://downloads.godotengine.org/?version=${{ inputs.version }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -O godot.zip
+          run: wget -q "https://downloads.godotengine.org/?version=${{ inputs.version }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -O godot.zip
           shell: bash
 
         - name: "Unzip Godot"
@@ -20,7 +20,11 @@ runs:
           shell: bash
 
         - name: "Download Export Templates"
-          run: wget "https://downloads.godotengine.org/?version=${{ inputs.version }}&flavor=stable&slug=export_templates.tpz&platform=templates" -O templates.zip
+          run: wget -q "https://downloads.godotengine.org/?version=${{ inputs.version }}&flavor=stable&slug=export_templates.tpz&platform=templates" -O templates.zip
+          shell: bash
+
+        - name: "Create Export Template Directory"
+          run: mkdir -p ~/.local/share/godot/export_templates/template
           shell: bash
 
         - name: "Unzip Export Templates"
