@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Godot
-        uses: ./github/actions/install-godot
+        uses: ./.github/actions/install-godot
 
       - name: Setup Graphviz
         run: sudo apt-get install -y graphviz
