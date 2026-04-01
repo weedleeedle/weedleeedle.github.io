@@ -11,10 +11,6 @@ runs:
           run: mkdir godot
           shell: bash
 
-        - name: "Enter Godot Directory"
-          run: cd godot
-          shell: bash
-
         - name: "Download Godot"
           run: wget "https://downloads.godotengine.org/?version=$VERSION&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -o godot.zip
           shell: bash
@@ -26,14 +22,13 @@ runs:
           shell: bash
 
         - name: "Unzip Godot"
-          run: unzip -p godot.zip > godot
+          run: unzip -p godot.zip > godot/godot
           shell: bash
 
-
         - name: "Set Permissions"
-          run: chmod +x godot
+          run: chmod +x godot/godot
           shell: bash
 
         - name: "Add Godot to PATH"
-          run: export PATH=$PATH:$(pwd)
+          run: export PATH=$PATH:$(pwd)/godot
           shell: bash
