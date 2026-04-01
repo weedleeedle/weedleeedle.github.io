@@ -18,10 +18,8 @@ runs:
             VERSION: ${{ inputs.version }}
 
         - name: "Download Godot"
-          run: wget "https://downloads.godotengine.org/?version=${VERSION}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -o godot.zip
+          run: wget "https://downloads.godotengine.org/?version=${{ inputs.version }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -o godot.zip
           shell: bash
-          env:
-            VERSION: ${{ inputs.version }}
 
         - name: "PWD idk"
           run: pwd
