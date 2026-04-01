@@ -18,10 +18,10 @@ runs:
             VERSION: ${{ inputs.version }}
 
         - name: "Download Godot"
-          run: wget "https://downloads.godotengine.org/?version=$VERSION&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -o godot.zip
+          run: wget "https://downloads.godotengine.org/?version=${VERSION}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -o godot.zip
           shell: bash
           env:
-              VERSION: ${{ inputs.version }}
+            VERSION: ${{ inputs.version }}
 
         - name: "PWD idk"
           run: pwd
@@ -36,5 +36,5 @@ runs:
           shell: bash
 
         - name: "Add Godot to PATH"
-          run: export PATH=$PATH:$(pwd)/godot
+          run: export GITHUB_PATH=$GITHUB_PATH:$(pwd)/godot
           shell: bash
