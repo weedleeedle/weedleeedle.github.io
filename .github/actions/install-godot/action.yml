@@ -12,7 +12,7 @@ runs:
           shell: bash
 
         - name: "Print version"
-          run: echo "$VERSION"
+          run: echo "=$VERSION"
           shell: bash
           env: 
             VERSION: ${{ inputs.version }}
