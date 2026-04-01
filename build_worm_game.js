@@ -9,7 +9,7 @@ export default async function() {
   const project_file = path.join(process.cwd(), "submodules/worm-game/project.godot");
   if (!fssync.existsSync(export_folder))
   {
-    await fs.mkdir(export_folder);
+    await fs.mkdir(export_folder, { recursive: true });
   }
   console.log(export_file);
   console.log(project_file);
