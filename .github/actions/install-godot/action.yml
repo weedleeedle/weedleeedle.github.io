@@ -11,18 +11,8 @@ runs:
           run: mkdir godot
           shell: bash
 
-        - name: "Print version"
-          run: echo "=$VERSION"
-          shell: bash
-          env: 
-            VERSION: ${{ inputs.version }}
-
         - name: "Download Godot"
-          run: wget "https://downloads.godotengine.org/?version=${{ inputs.version }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -o godot.zip
-          shell: bash
-
-        - name: "PWD idk"
-          run: pwd
+          run: wget "https://downloads.godotengine.org/?version=${{ inputs.version }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -O godot.zip
           shell: bash
 
         - name: "Unzip Godot"
