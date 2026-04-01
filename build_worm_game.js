@@ -1,11 +1,16 @@
+import fssync from "fs";
 import fs from "fs/promises"
 import child_process from "child_process";
 import path from "node:path";
 
 export default async function() {
-  //await fs.mkdir("build/worm_game");
-  const export_file = path.join(process.cwd(), "src/_includes/build/worm_game/worm_game.html");
+  const export_folder = path.join(process.cwd(), "src/_includes/build/worm_game");
+  const export_file = path.join(export_folder, "worm_game.html");
   const project_file = path.join(process.cwd(), "submodules/worm-game/project.godot");
+  if (!fssync.existsSync(export_folder))
+  {
+    await fs.mkdir(export_folder, { recursive: true });
+  }
   console.log(export_file);
   console.log(project_file);
   const godot = child_process.spawn("godot", ["--headless", "--quiet", "--export-release", "Web", export_file, project_file]);
@@ -15,5 +20,4 @@ export default async function() {
   await new Promise((resolve) => {
     godot.on('close', resolve)
   });
-  console.log("Ding!");
 }

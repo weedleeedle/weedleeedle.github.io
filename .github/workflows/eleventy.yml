@@ -21,15 +21,24 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
+      # Check out submodules toooo!
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Install Godot
+        uses: ./.github/actions/install-godot
+
+      - name: Setup Graphviz
+        run: sudo apt-get install -y graphviz
+        
+      - name: Install dependencies
+        run: npm install
+        
       - name: Build static files
-      # You may pin to the exact commit or the version.
-      # uses: TartanLlama/actions-eleventy@6c28b3072246fb361c537282e3eac5ab9b6ac85e
-        uses: patrickweaver/actions-eleventy@master
-        with:
-          # If set to `true`, `npm install` will be run before Eleventy is invoked
-          install_dependencies: true
+        run: npx eleventy
+          
       # Make artifact
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v3
@@ -37,6 +46,10 @@ jobs:
           path: _site/
           
   deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
     runs-on: ubuntu-latest
