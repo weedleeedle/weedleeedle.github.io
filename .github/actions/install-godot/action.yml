@@ -8,7 +8,11 @@ runs:
     using: "composite"
     steps:
         - name: "Create Godot Directory"
-          run: mkdir godot && cd godot
+          run: mkdir godot
+          shell: bash
+
+        - name: "Enter Godot Directory"
+          run: cd godot
           shell: bash
 
         - name: "Download Godot"
@@ -17,13 +21,14 @@ runs:
           env:
               VERSION: ${{ inputs.version }}
 
+        - name: "PWD idk"
+          run: pwd
+          shell: bash
+
         - name: "Unzip Godot"
           run: unzip -p godot.zip > godot
           shell: bash
 
-        - name: "PWD idk"
-          run: pwd
-          shell: bash
 
         - name: "Set Permissions"
           run: chmod +x godot
