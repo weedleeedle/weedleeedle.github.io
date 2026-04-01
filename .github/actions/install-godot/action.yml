@@ -21,6 +21,10 @@ runs:
           run: unzip -p godot.zip > godot
           shell: bash
 
+        - name: "PWD idk"
+          run: pwd
+          shell: bash
+
         - name: "Set Permissions"
           run: chmod +x godot
           shell: bash
