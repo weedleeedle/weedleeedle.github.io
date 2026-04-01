@@ -14,6 +14,7 @@ img
 
 p {
     text-align: justify;
+    line-height: 150%;
 }
 
 /*We don't add a margin to a paragraph unless it follows another paragraph*/
@@ -26,6 +27,7 @@ h1,h2,h3,h4,h5
 {
     font-family: "Inconsolata", sans-serif;
     font-weight: bold;
+    margin-top: 1.5em;
 }
 
 h1

@@ -1,0 +1,3 @@
+[submodule "submodules/worm-game"]
+	path = submodules/worm-game
+	url = git@github.com:weedleeedle/worm-game.git
