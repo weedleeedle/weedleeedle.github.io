@@ -2,6 +2,7 @@ import graphVizPlugin from "eleventy-plugin-graphviz";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import markdownItCallouts from "markdown-it-callouts";
 import build_worm_game from "./build_worm_game.js";
+import { svelteBuild, svelteShortCode }  from "./build_svelte.js";
 
 export default async function(eleventyConfig) {
   eleventyConfig.addPlugin(graphVizPlugin, { format: "svg" });
@@ -30,6 +31,15 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/**/*.jpg");
   eleventyConfig.addPassthroughCopy("src/**/*.png");
   eleventyConfig.addPassthroughCopy("src/**/*.webp");
+
+  const svelteInputDir = "src/scripts/components/";
+  const svelteOutputDir = "_site/scripts/components/";
+
+  // Build svelte components
+  eleventyConfig.on("eleventy.before", async () => svelteBuild(svelteInputDir, svelteOutputDir));
+
+  // Add Svelte shortcode
+  eleventyConfig.addAsyncShortcode('svelte', (componentName, props) => svelteShortCode(svelteOutputDir, componentName, props));
 
   await build_worm_game();
   eleventyConfig.addPassthroughCopy("src/_includes/build/worm_game/*");
