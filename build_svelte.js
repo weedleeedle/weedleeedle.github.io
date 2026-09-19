@@ -16,9 +16,11 @@ export async function svelteBuild(directoryPath, outputDir) {
   // Create the output dir if it doesn't exist already
   await fs.mkdir(outputDir, {recursive: true});
 
-  const fileList = await fs.readdir(directoryPath);
+  const fileList = await fs.readdir(directoryPath, { recursive: true });
+  console.log(fileList)
 
   for (const file of fileList) {
+    console.log("Generating ", file)
     if (!file.endsWith(".svelte")) continue;
 
     const inputPath = path.join(directoryPath, file);
@@ -27,10 +29,33 @@ export async function svelteBuild(directoryPath, outputDir) {
 
     // Generate server side javascript
     const serverFilePath = path.join(outputDir, file.replace(".svelte", ".server.js"));
-    const ssr = compile(source, {
-      generate: "server"
+
+    const serverBundle = await rollup.rollup({
+      input: inputPath,
+      plugins: [
+        svelte({
+          compilerOptions: {
+            generate: "server",
+            dev: false
+          }
+        }),
+        resolve({
+          exportConditions: ["svelte", "node"],
+          extensions: [".svelte", ".js", ".ts"],
+          dedupe: ["svelte"],
+        }),
+        commonjs()
+      ]
     });
-    await fs.writeFile(serverFilePath, ssr.js.code, "utf-8");
+
+    const serverOutput = await serverBundle.generate({ format: "esm" });
+
+    // Create subdir if needed
+    const subdirPath = path.dirname(serverFilePath)
+    console.log("Subdir path: ", subdirPath)
+    await fs.mkdir(subdirPath, {recursive: true});
+
+    await fs.writeFile(serverFilePath, serverOutput.output[0].code, "utf-8");
 
     // Generate client side javascript
     // We need this as a wrapper around our generated HTML
@@ -91,6 +116,7 @@ export async function svelteShortCode(buildDir, componentName, props = {}) {
   const clientPath = "/" + path.join("scripts/components", componentName + ".client.js");
 
   const Component = serverMod.default;
+  console.log(componentName, Object.keys(serverMod), typeof serverMod.default)
 
   // This generates the server side HTML
   const { body } = render(Component, { props });
